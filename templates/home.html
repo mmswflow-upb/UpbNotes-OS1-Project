@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="device-width, initial-scale=1">
+        <title>UpbNotes-Notes Manager</title>
+        
+        <header align = "center">
+            
+            <h1>UpbNotes</h1>
+            <h2>Upload, Search, Delete or Edit Your Own Notes.</h2>
+        </header>
+    </head>
+    
+    <body>
+        <br><br><br><br>
+        <style>
+        body {background-color: rgb(46, 46, 48);}
+        h1 {color:rgb(255, 255, 255);}
+        h2 {color:rgb(255, 255, 255);}
+        h3 {color:rgb(250, 77, 4);}
+        h4 {color:rgb(255, 255, 255);}
+        p {color:rgb(250, 77, 4);  border-color:rgb(12, 12, 12); }
+        label {color:rgb(255, 255, 255); }
+        li {color:rgb(255, 255, 255);}
+        .specialInput {background: none; border: none; color:rgb(255, 255, 255); }
+        a {color:rgb(4, 218, 82);}
+        ul {list-style-position: inside;}
+        div {border: 20px;}
+        .searchResults {margin: 10px 0px 10px 0px; border-bottom-style: inset; border-bottom-color: rgb(250, 77, 4);}
+        </style>
+
+        <form action = "#" method = "post" >
+
+            <label>Search Through Your Notes:</label>
+            <input type = "text" name = "searchNotes" placeholder="subject/file">
+            <input type = "submit" name = "searchButton" value = "Search"><br><br>
+
+            <label>Search Filters:</label>
+                
+            <select name = "searchFilter">
+                <option>None</option>
+                <option {{subjectSelect}}>Subject Name</option>
+                <option {{fileSelect}}>File Name</option>
+            </select>
+            <br>
+        </form>
+
+        <br>
+        {% with messages = get_flashed_messages(category_filter=["warning","info"]) %}
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <h3>{{message}}</h3>
+
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <br>
+        
+        
+        {% for note in NoteResults %}
+            
+            <form action = "#" method = "post" class = "searchResults">
+                <ul>
+                    <li>
+                        <label>ID:</label>
+                        <input class = "specialInput" type = "number" value = "{{note[0]}}" readonly name = "noteID">
+                    </li>
+                    <li>Subject: {{note[1]}}</li>
+                    <li>Note: {{note[2]}}</li>
+                    <li>Attached File: {{note[3]}}<br><br>
+                        <a href = "static/{{note[3]}}" download>
+                            {% if ".pdf" in note[3] %}
+                                <img src="static/pdfIcon.png" width = "3%" height="3%" alt="No Attached File">
+                            {% else %}
+                                <img src = "static/{{note[3]}}" width = "15%" height="25%" alt = "No Attached Image"> 
+                            {% endif %}
+                        </a>
+                    </li><br>
+
+                        <input value = "DELETE" type = "submit" name = "deleteNote">
+                        <input value = "EDIT" type = "submit" name = "editNoteList">
+                </ul>
+            </form>
+          
+        {% endfor %}   
+        <hr>
+        <div>
+            {% with messages = get_flashed_messages(category_filter=["error","message"]) %}
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <p>{{message}}</p>
+
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <br><br>
+
+            <form action = "#" method = "post" enctype="multipart/form-data">
+
+                <label>ID: </label>
+                <input class = "specialInput" type = "text" value = "{{ID}}" readonly name = "noteID"><br><br>
+                <label>Subject Name: </label>
+                <input type = "text" name = "subjectName" maxlength="200"><br><br>
+                <label>Written Note: </label>
+                <textarea placeholder="write something here to take note of later" maxlength="600" name = "writtenNote"></textarea><br><br>
+                <label>Attached File: </label>
+                <input type = "file" value = "Choose Note File" name = "noteFile" accept = ".jpg, .jpeg, .png, .pdf"><br><br>
+
+                <input type = "submit" value = "{{opValue}}" name = "{{opName}}">
+            </form>
+        </div>
+    </body>
+</html>
