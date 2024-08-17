@@ -21,7 +21,7 @@ Before setting up the project, ensure you have the following installed on your L
 First, clone the repository from GitHub to your local machine:
 
 ```bash
-git clone https://github.com/mmswflow-upb/upbnotes.git
+git clone https://github.com/mmswflow-upb/UpbNotes-OS1-Project-No.2
 cd upbnotes
 ```
 ### 2. Install Python Dependencies
