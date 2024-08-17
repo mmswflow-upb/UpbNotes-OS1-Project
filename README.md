@@ -56,7 +56,9 @@ Log in to MariaDB as the root user and create the UpbNotes database:
 sudo mysql -u root -p
 ```
 
-Inside the MariaDB shell, run the SQL commands from the [script](db_creation_script.sql), then run the following command and make sure you get the same result as in the [picture](Tables%20in%20DB.png).
+Inside the MariaDB shell, run the SQL commands from the [script](db_creation_script.sql), then run the following command and make sure you get the same result as in the picture.
+
+![picture](Tables%20in%20DB.png).
 
 ### 5. Upload Directory
 The application saves uploaded files in the static directory. Ensure this directory exists and has the appropriate permissions:
