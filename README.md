@@ -70,5 +70,5 @@ chmod 755 static
 To run the Flask application, execute the following command in the project directory:
 
 ```bash
-python3 your_script_name.py
+python3 index.py
 ```
